@@ -1,0 +1,26 @@
+{
+  "inject_index_on_llm": {
+    "description": "每次 LLM 请求前注入短索引",
+    "type": "bool",
+    "default": true,
+    "hint": "稳定规则适合注入；过大索引会占上下文"
+  },
+  "index_max_chars": {
+    "description": "短索引最大字符数",
+    "type": "int",
+    "default": 1200,
+    "hint": "类似 MEMORY.md 头，宁短勿长"
+  },
+  "auto_raw_every_n": {
+    "description": "每 N 轮用户消息落一条 raw 摘要（0=关闭）",
+    "type": "int",
+    "default": 0,
+    "hint": "0 表示仅手动/工具写入；可按需开启"
+  },
+  "ephemeral_blocklist": {
+    "description": "禁止写入精选笔记的关键词（逗号分隔）",
+    "type": "string",
+    "default": "现价,资金费率,OI,open interest,临时",
+    "hint": "偏 ephemeral 的状态不要进 notes"
+  }
+}
