@@ -25,39 +25,39 @@ def _blocklist(cfg: dict) -> list[str]:
 
 
 class SytoriMemoryPlugin(Star):
-    """Sytori 悟·记忆：四层长期记忆 + 做梦整理。"""
+    """做梦记忆：四层长期记忆 + 做梦整理。"""
 
     def __init__(self, context: Context, config: AstrBotConfig | None = None):
         super().__init__(context)
         self.config = config or {}
-        logger.info("astrbot_plugin_sytori_memory loaded")
+        logger.info("做梦记忆 plugin loaded")
 
     def _store(self, event: AstrMessageEvent) -> MemoryStore:
         return MemoryStore(_data_root(), event.unified_msg_origin)
 
-    @filter.command("悟帮", alias={"sytori_help", "悟帮助"})
+    @filter.command("记忆帮助", alias={"sytori_help", "悟帮", "悟帮助"})
     async def cmd_help(self, event: AstrMessageEvent):
-        """查看 Sytori 记忆插件帮助"""
+        """查看做梦记忆插件帮助"""
         yield event.plain_result(
-            "Sytori 悟·记忆\n"
-            "/悟记 <内容> — 写入精选笔记\n"
-            "/悟忆 <关键词> — 检索笔记/Wiki\n"
+            "做梦记忆\n"
+            "/记住 <内容> — 写入精选笔记\n"
+            "/回忆 <关键词> — 检索笔记/Wiki\n"
             "/做梦 — 离线整理（纠错/去重/晋升索引）\n"
-            "/悟索引 — 查看短索引\n"
+            "/记忆索引 — 查看短索引\n"
             "Agent 工具：sytori_memorize / sytori_recall / sytori_dream"
         )
 
-    @filter.command("悟记", alias={"sytori_mem", "记住"})
+    @filter.command("记住", alias={"sytori_mem", "悟记"})
     async def cmd_memorize(self, event: AstrMessageEvent):
-        """写入一条精选笔记。用法：/悟记 内容"""
+        """写入一条精选笔记。用法：/记住 内容"""
         text = (event.message_str or "").strip()
         # 去掉指令本身
-        for prefix in ("悟记", "sytori_mem", "记住"):
+        for prefix in ("记住", "悟记", "sytori_mem"):
             if text.startswith(prefix):
                 text = text[len(prefix) :].strip()
                 break
         if not text:
-            yield event.plain_result("用法：/悟记 值得长期记住的内容")
+            yield event.plain_result("用法：/记住 值得长期记住的内容")
             return
         blocked = _blocklist(self.config)
         low = text.lower()
@@ -68,11 +68,11 @@ class SytoriMemoryPlugin(Star):
         store.add_note(text, kind="note")
         yield event.plain_result(f"已写入精选笔记：{text[:120]}")
 
-    @filter.command("悟忆", alias={"sytori_recall", "回忆"})
+    @filter.command("回忆", alias={"sytori_recall", "悟忆"})
     async def cmd_recall(self, event: AstrMessageEvent, query: str = ""):
-        """检索笔记与 Wiki。用法：/悟忆 关键词"""
+        """检索笔记与 Wiki。用法：/回忆 关键词"""
         q = (query or "").strip() or (event.message_str or "").strip()
-        for prefix in ("悟忆", "sytori_recall", "回忆"):
+        for prefix in ("回忆", "悟忆", "sytori_recall"):
             if q.startswith(prefix):
                 q = q[len(prefix) :].strip()
                 break
@@ -99,7 +99,7 @@ class SytoriMemoryPlugin(Star):
             "短索引已重建。"
         )
 
-    @filter.command("悟索引", alias={"sytori_index"})
+    @filter.command("记忆索引", alias={"sytori_index", "悟索引"})
     async def cmd_index(self, event: AstrMessageEvent):
         """查看当前短索引"""
         store = self._store(event)
@@ -118,9 +118,9 @@ class SytoriMemoryPlugin(Star):
             if not idx or idx.count("\n") < 2:
                 return
             block = (
-                "<sytori_memory_index>\n"
+                "<dream_memory_index>\n"
                 f"{idx}\n"
-                "</sytori_memory_index>\n"
+                "</dream_memory_index>\n"
                 "以上为长期记忆短索引；细节请用 sytori_recall 按需查找。"
             )
             if TextPart is not None and hasattr(req, "extra_user_content_parts"):
@@ -176,4 +176,4 @@ class SytoriMemoryPlugin(Star):
         )
 
     async def terminate(self):
-        logger.info("astrbot_plugin_sytori_memory terminated")
+        logger.info("做梦记忆 plugin terminated")
