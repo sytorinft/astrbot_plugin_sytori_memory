@@ -15,7 +15,7 @@ def _safe_umo(umo: str) -> str:
 
 class MemoryStore:
     def __init__(self, data_root: Path, umo: str):
-        self.root = Path(data_root) / "sytori_memory" / _safe_umo(umo)
+        self.root = Path(data_root) / _safe_umo(umo)
         self.root.mkdir(parents=True, exist_ok=True)
         (self.root / "wiki").mkdir(exist_ok=True)
         (self.root / "raw").mkdir(exist_ok=True)
@@ -146,40 +146,7 @@ class MemoryStore:
 
         # rewrite notes.jsonl
         tmp = self.notes_path.with_suffix(".tmp")
-        with tmp.open("w", encoding="utf-8") as f:"""四层记忆存储。数据落在 AstrBot data 目录，避免插件更新被覆盖。"""
-from __future__ import annotations
-
-import hashlib
-import json
-import re
-import time
-from pathlib import Path
-from typing import Any
-
-
-def _safe_umo(umo: str) -> str:
-    return hashlib.sha1((umo or "default").encode("utf-8")).hexdigest()[:16]
-
-
-class MemoryStore:
-    def __init__(self, data_root: Path, umo: str):
-        self.root = Path(data_root) / "sytori_memory" / _safe_umo(umo)
-        self.root.mkdir(parents=True, exist_ok=True)
-        (self.root / "wiki").mkd
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        with tmp.open("w", encoding="utf-8") as f:
             for n in kept:
                 f.write(json.dumps(n, ensure_ascii=False) + "\n")
         tmp.replace(self.notes_path)

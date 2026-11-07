@@ -7,7 +7,7 @@ desc: |
   并在空闲时通过「做梦」纠正、合并、修剪、晋升记忆。
   灵感来源：https://www.anthropic.com/research/components-of-agent-memory
 author: sytori
-version: 0.1.1
+version: 0.1.2
 repo: https://github.com/sytorinft/astrbot_plugin_sytori_memory
 astrbot_version: ">=4.16.0"
 keywords:
@@ -15,7 +15,3 @@ keywords:
   - dreaming
   - wiki
   - long-term
-
-
-
-

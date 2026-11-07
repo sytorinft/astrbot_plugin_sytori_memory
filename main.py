@@ -4,7 +4,7 @@ from pathlib import Path
 
 from astrbot.api import AstrBotConfig, logger
 from astrbot.api.event import AstrMessageEvent, filter
-from astrbot.api.star import Context, Star
+from astrbot.api.star import Context, Star, StarTools
 
 try:
     from astrbot.core.agent.message import TextPart
@@ -15,8 +15,13 @@ from .core.store import MemoryStore
 
 
 def _data_root() -> Path:
-    # AstrBot 工作目录下的 data/
-    return Path("data").resolve()
+    # 规范：data/plugin_data/<plugin_name>
+    try:
+        return StarTools.get_data_dir("astrbot_plugin_sytori_memory")
+    except Exception:
+        p = Path("data") / "plugin_data" / "astrbot_plugin_sytori_memory"
+        p.mkdir(parents=True, exist_ok=True)
+        return p.resolve()
 
 
 def _blocklist(cfg: dict) -> list[str]:
