@@ -1,6 +1,6 @@
 # astrbot_plugin_sytori_memory
 
-**Sytori 悟·记忆** — AstrBot 长期记忆插件（四层 + 做梦）。
+**做梦记忆** — AstrBot 长期记忆插件（四层 + 做梦）。
 
 灵感来自 [Anthropic — The components of agent memory](https://www.anthropic.com/research/components-of-agent-memory)。
 
@@ -15,11 +15,11 @@
 
 | 指令 | 说明 |
 |---|---|
-| `/悟记 内容` | 写入一条精选笔记 |
-| `/悟忆 关键词` | 检索笔记 / wiki |
+| `/记住 内容` | 写入一条精选笔记 |
+| `/回忆 关键词` | 检索笔记 / wiki |
 | `/做梦` | 离线做梦：纠错、合并、修剪、晋升索引 |
-| `/悟索引` | 查看当前短索引 |
-| `/悟帮` | 帮助 |
+| `/记忆索引` | 查看当前短索引 |
+| `/记忆帮助` | 帮助 |
 
 也可由 Agent 调用 LLM Tools：`sytori_memorize` / `sytori_recall` / `sytori_dream`。
 
@@ -37,7 +37,7 @@
 
 ## Logo
 
-`logo.png` 1:1，推荐 256×256。市场徽标也可托管后填写公开 URL。
+`logo.png` 1:1，推荐 256×256。
 
 ## License
 
